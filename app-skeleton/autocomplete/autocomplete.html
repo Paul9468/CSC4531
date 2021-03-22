@@ -1,0 +1,26 @@
+
+<div class="w3-margin" layout="column" ng-controller="AutoCompleteController">
+
+    <br>
+    <p>This is the <i>item search</i> page.</p>
+
+    <form autocomplete="off" action="/action_page.php">
+        <div class="autocomplete" style="width:300px;">
+            <input id="myInput" type="text" name="myCountry" placeholder="Country">
+        </div>
+        <input type="submit">
+    </form>
+
+
+
+    <br />
+    <button ng-click="gotohome()"
+            type="button" class="w3-btn w3-red w3-round-small">
+        Go back to home!
+    </button>
+    <button ng-click="reloadItemsList()"
+            type="button" class="w3-btn w3-red w3-round-small">
+        Reload items list from API
+    </button>
+
+</div>

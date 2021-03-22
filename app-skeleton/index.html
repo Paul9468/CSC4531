@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>App CSC4531</title>
+
+    <!-- CSS
+    ––––––––––––––––––––––––––––––––––––––––––––––––––-->
+    <link rel="stylesheet" href="css/w3.css">
+    <link rel="stylesheet" href="css/font-awesome-4.5.0/css/font-awesome.min.css">
+
+  </head>
+
+  <body ng-app="myApp">
+
+      <!-- header
+    ––––––––––––––––––––––––––––––––––––––––––––––––––-->
+      <div class="w3-container w3-teal" ng-controller="HeaderController">
+          <h1>App CSC4531</h1>
+          <button ng-click="gotohome()"
+                  type="button" class="w3-btn w3-red w3-round-small">
+              Home
+          </button>
+          <button ng-click="gotopage3()"
+                  type="button" class="w3-btn w3-red w3-round-small">
+              Region
+          </button>
+          <button ng-click="gotoautocomplete()"
+                  type="button" class="w3-btn w3-red w3-round-small">
+              Item Search
+          </button>
+      </div>
+
+
+      <!-- dynamic content placeholder
+    ––––––––––––––––––––––––––––––––––––––––––––––––––-->
+      <div ui-view></div>
+
+
+      <!-- libraries
+    ––––––––––––––––––––––––––––––––––––––––––––––––––-->
+      <script src="jslibs/angular.min.js"></script>
+      <script src="jslibs/angular-ui-router.min.js"></script>
+
+      <!-- controllers
+    ––––––––––––––––––––––––––––––––––––––––––––––––––-->
+      <script src="js/myapp.js"></script>
+      <script src="js/samplefactory.js"></script>
+      <script src="headercontroller.js"></script>
+      <script src="home/homecontroller.js"></script>
+      <script src="page2/page2controller.js"></script>
+      <script src="page3/page3controller.js"></script>
+      <script src="autocomplete/autocompletecontroller.js"></script>
+
+
+  </body>
+
+</html>

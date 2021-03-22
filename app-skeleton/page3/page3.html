@@ -1,0 +1,29 @@
+
+<div class="w3-margin" layout="column" ng-controller="Page3Controller">
+
+    <br>
+    <p>This is the <i>3rd</i> page.</p>
+
+
+    <md-content class="md-padding">
+        <form ng-submit="$event.preventDefault()">
+            <md-autocomplete ng-disabled="false" md-no-cache="true" md-selected-item="ctrl.selectedItem" md-search-text-change="ctrl.searchTextChange(ctrl.searchText)" md-search-text="ctrl.searchText" md-selected-item-change="ctrl.selectedItemChange(item)" md-items="item in ctrl.querySearch(ctrl.searchText)" md-item-text="item.display" md-min-length="0" placeholder="Search for an item.">
+                <md-item-template>
+                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+                </md-item-template>
+                <md-not-found>
+                    No item matching "{{ctrl.searchText}}" were found.
+                </md-not-found>
+            </md-autocomplete>
+            <br>
+        </form>
+    </md-content>
+
+
+    <br />
+    <button ng-click="gotohome()"
+            type="button" class="w3-btn w3-red w3-round-small">
+        Go back to home!
+    </button>
+
+</div>

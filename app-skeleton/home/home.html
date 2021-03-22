@@ -1,0 +1,43 @@
+
+<div class="w3-margin" ng-controller="HomeController">
+
+
+
+    <br>
+    <p>This is the <i>home</i> page.</p>
+    <p>Please select your region and server</p>
+
+
+    <br><br>
+
+
+
+
+
+
+
+
+    <br><br>
+
+    <p>The <i>userString</i> variable is now set to: {{userString}}</p>
+
+    <h2>Change it! </h2>
+
+    <input class="w3-input w3-animate-input"
+           type="text" ng-model="userString">
+    <span class="bar"></span>
+    <label class="w3-label w3-text-dark-grey">userString</label>
+
+    <br><br>
+
+    <button ng-click="gotopage2()"
+            type="button" class="w3-btn w3-red w3-round-small">
+        Go to Page 2!
+    </button>
+
+    <button ng-click="gotopage3()"
+            type="button" class="w3-btn w3-red w3-round-small">
+        Go to Page 3!
+    </button>
+
+</div>
