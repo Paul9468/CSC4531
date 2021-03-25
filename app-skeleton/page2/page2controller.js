@@ -15,7 +15,7 @@ myApp.controller('Page2Controller', ["$scope", "$state", "$http",
             $scope.ahData = "Trying to reach API";
             $http({
                 method: 'GET',
-                url: 'http://localhost:5000/api/ahprices/28464'
+                url: 'http://localhost:3000/signature?region=us&realmName=tichondrius&characterName=tmpikaboo'
             }).then(function successCallback(response) {
                 // this callback will be called asynchronously
                 // when the response is available
