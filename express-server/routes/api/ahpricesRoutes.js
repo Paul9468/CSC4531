@@ -138,13 +138,13 @@ function getToken(callback){
   console.log("Getting token");
   readFile(
     (data)=>{
-      if(data.expires_at < Date.now() - 180000){ //Arbitrary 3min to prevent token timing out during request
-        console.log("EXPIRED");
-        refreshToken(callback);
+      if(data.expires_at > Date.now() + 180000){ //Arbitrary 3min to prevent token timing out during request
+        console.log("Saved token is valid");
+	callback(data.access_token);
       }
       else{
-        console.log(2);
-        callback(data.access_token);
+        console.log("Saved token is invalid");
+        refreshToken(callback);
       } 
   },true,'credentials.json')
 }
@@ -224,29 +224,26 @@ function refreshToken(callback){
   var blizzard_req = request(options1, function(err, blizzard_res, body) {
     //console.log('STATUS: ' + blizzard_res.statusCode);
     //console.log('HEADERS: ' + JSON.stringify(blizzard_res.headers));
-    console.log(body);
-    console.log(err);
+    console.log('statusCode:', blizzard_res && blizzard_res.statusCode);
+    if (err){
+      console.error(err);}
+    
   
-    // The whole response has been received.
-    /*
-    blizzard_res.on('end', () => {
-      console.log("Token recieved");
-      const new_credentials = {
-        "access_token":JSON.parse(data).access_token,
-        "expires_at":Date.now()+JSON.parse(data).expires_in*1000
-      } 
-      writeFile(
-        JSON.stringify(new_credentials),
-        ()=>{
-          console.log("New token written");
-        },
-        'credentials.json')
-        callback(JSON.parse(data).access_token);
-    });*/
+    // Save the received token
+    console.log("Token recieved");
+    const new_credentials = {
+      "access_token":JSON.parse(body).access_token,
+      "expires_at":Date.now()+JSON.parse(body).expires_in*1000
+    } 
+    writeFile(
+      JSON.stringify(new_credentials),
+      ()=>{
+        console.log("New token written");
+      },
+      'credentials.json')
+      callback(JSON.parse(body).access_token);
+    });
   
-  })
-
-
 }
 
 
