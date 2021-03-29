@@ -41,17 +41,17 @@ const readFile = (
 //Get single item price
 router.get('/item/:id', (req, res) => {
     readFile(data => {
-
+        const id = parseInt(req.params.id)
         const min =
         Math.min.apply(null,
-        JSON.parse(data)
+        data
         .auctions
-        .filter(auction => auction.item.id == req.params.id)
+        .filter(auction => auction.item.id == id)
         .map(auction => auction.unit_price)
         )
         res.set('Access-Control-Allow-Origin', '*');
-        res.send(`Lowest price for item ${req.params.id} is ${min / 1000}`);
-
+        res.status(200).json(min / 1000);
+        //res.status(200).json(100);
     });
 });
 

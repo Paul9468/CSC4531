@@ -36,13 +36,26 @@ myApp.controller('Page2Controller', ["$scope", "$state", "$http","RecipesService
     }
 ])
 
-.service('RecipesService', function(){
+.service('RecipesService',["$http", function($http){
     var recipesService = {};
 
     recipesService.recipesList = [
-        {componants: ['comp1','comp2'], products: 'prod1'},
-        {componants: ['comp3','comp4'], products: 'prod2'},
-        {componants: ['comp1','comp4'], products: 'prod2'}
+        {"name":"AAAA",
+        "components":[{"name":"Apprentice's Boots","count":1,"id":55},{"name":"Primitive Kilt","count":1,"id":153}],
+        "products":[{"name":"A Sycamore Branch","count":2,"id":742}],
+        "setPrice":"",
+        "price":-1,
+        "cost":-1,
+        "profit":-1,
+        "id":7033296789},
+        {"name":"BBB",
+        "components":[{"name":"A Sycamore Branch","count":2,"id":742}],
+        "products":[{"name":"Bent Staff","count":1,"id":35}],
+        "setPrice":"",
+        "price":-1,
+        "cost":-1,
+        "profit":-1,
+        "id":7033430428}
     ]
     recipesService.add = (recipe) => {
         recipesService.recipesList.push(recipe);
@@ -52,31 +65,32 @@ myApp.controller('Page2Controller', ["$scope", "$state", "$http","RecipesService
     recipesService.evaluate = (recipe) => {
         recipe.cost = 0;
         recipe.price = 0;
-        recipe.profit = - products.count() - componants.count();
-        recipesService.getPrices(products,recipe,true);
-        recipesService.getPrices(componants,recipe,false);
+        recipe.profit = - recipe.products.length - recipe.components.length;
+        recipesService.getPrices(recipe,true);
+        recipesService.getPrices(recipe,false);
     }
 
-    recipesService.getPrices = (list,recipe,bool) => {
-        for (item in list){
+    recipesService.getPrices = (recipe,bool) => {
+        list = bool ? recipe.products : recipe.components;
+        list.forEach(item =>
+        {
             $http({
                 method: 'GET',
-                url: `http://localhost:5000/api/ahprices/item/:${item.id}`
+                url: `http://localhost:5000/api/ahprices/item/${item.id}`
             }).then(function successCallback(response) {
                 // this callback will be called asynchronously when the response is available
-                console.log('get ok');
                 if(bool){
-                    recipe.cost += response;
+                    recipe.cost += response.data * item.count;
                 }
                 else{
-                    recipe.price += response;
+                    recipe.price += response.data * item.count;
                 }
                 recipesService.updateRecipe(recipe);
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs or server returns response with an error status.
                 console.log('get nok');
             });
-        }
+        })
     }
 
     recipesService.updateRecipe = (recipe) => {
@@ -88,11 +102,11 @@ myApp.controller('Page2Controller', ["$scope", "$state", "$http","RecipesService
     }
 
     recipesService.evaluateAll = () => {
-        for(recipe in recipesService.recipesList){
-            evaluate(recipe);
-        }
+        recipesService.recipesList.forEach((recipe)=>{
+            recipesService.evaluate(recipe);
+        })
     }
 
     return recipesService;
-})
+}])
 ;
