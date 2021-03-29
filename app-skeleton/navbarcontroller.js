@@ -1,8 +1,8 @@
-myApp.controller('HeaderController', ["$scope", "$state",
+myApp.controller('NavbarController', ["$scope", "$state",
 
     function ($scope, $state) {
 
-        console.log('this is the header controller, hi!');
+        console.log('this is the navigation bar controller, hi!');
 
 
         $scope.gotohome = function () {

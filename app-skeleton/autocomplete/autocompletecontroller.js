@@ -1,6 +1,6 @@
-myApp.controller('AutoCompleteController', ["$scope", "$state", "$http",
+myApp.controller('AutoCompleteController', ["$scope", "$state", "$http", "RecipesService",
 
-    function ($scope, $state, $http, inp, arr) {
+    function ($scope, $state, $http, recipesService) {
 
         console.log('this is the AutoComplete controller, hi!');
 
@@ -9,9 +9,23 @@ myApp.controller('AutoCompleteController', ["$scope", "$state", "$http",
             $state.go("home");
         }
 
+        $scope.saveRecipe = function() {
+            newRecipe = {
+                name: document.getElementById("nameForm").value,
+                components: $scope.compList,
+                products: $scope.prodList,
+                setPrice: document.getElementById("setPriceForm").value,
+                price: -1,
+                cost: -1,
+                profit: -1,
+                id:Date.now()-1610000000000
+            };
+            recipesService.add(newRecipe);
+            $state.go("page2");
+        }
+
         var items = [{ "id": 25, "name": "Worn Shortsword" }, { "id": 35, "name": "Bent Staff" }, { "id": 36, "name": "Worn Mace" }, { "id": 37, "name": "Worn Axe" }, { "id": 38, "name": "Recruit&#39;s Shirt" }, { "id": 39, "name": "Recruit&#39;s Pants" }, { "id": 40, "name": "Recruit&#39;s Boots" }, { "id": 43, "name": "Squire&#39;s Boots" }, { "id": 44, "name": "Squire&#39;s Pants" }, { "id": 45, "name": "Squire&#39;s Shirt" }, { "id": 47, "name": "Footpad&#39;s Shoes" }, { "id": 48, "name": "Footpad&#39;s Pants" }, { "id": 49, "name": "Footpad&#39;s Shirt" }, { "id": 51, "name": "Neophyte&#39;s Boots" }, { "id": 52, "name": "Neophyte&#39;s Pants" }, { "id": 53, "name": "Neophyte&#39;s Shirt" }, { "id": 55, "name": "Apprentice&#39;s Boots" }, { "id": 56, "name": "Apprentice&#39;s Robe" }, { "id": 57, "name": "Acolyte&#39;s Robe" }, { "id": 59, "name": "Acolyte&#39;s Shoes" }, { "id": 60, "name": "Layered Tunic" }, { "id": 61, "name": "Dwarven Leather Pants" }, { "id": 79, "name": "Dwarven Cloth Britches" }, { "id": 80, "name": "Soft Fur-Lined Shoes" }, { "id": 85, "name": "Dirty Leather Vest" }, { "id": 117, "name": "Tough Jerky" }, { "id": 118, "name": "Minor Healing Potion" }, { "id": 120, "name": "Thug Pants" }, { "id": 121, "name": "Thug Boots" }, { "id": 127, "name": "Trapper&#39;s Shirt" }, { "id": 129, "name": "Rugged Trapper&#39;s Boots" }, { "id": 139, "name": "Brawler&#39;s Pants" }, { "id": 140, "name": "Brawler&#39;s Boots" }, { "id": 147, "name": "Rugged Trapper&#39;s Pants" }, { "id": 148, "name": "Rugged Trapper&#39;s Shirt" }, { "id": 153, "name": "Primitive Kilt" }, { "id": 159, "name": "Refreshing Spring Water" }, { "id": 182, "name": "Garrick&#39;s Head" }, { "id": 193, "name": "Tattered Cloth Vest" }, { "id": 194, "name": "Tattered Cloth Pants" }, { "id": 195, "name": "Tattered Cloth Boots" }, { "id": 200, "name": "Thick Cloth Vest" }, { "id": 201, "name": "Thick Cloth Pants" }, { "id": 202, "name": "Thick Cloth Shoes" }, { "id": 203, "name": "Thick Cloth Gloves" }, { "id": 209, "name": "Dirty Leather Pants" }, { "id": 210, "name": "Dirty Leather Boots" }, { "id": 236, "name": "Cured Leather Armor" }, { "id": 237, "name": "Cured Leather Pants" }, { "id": 238, "name": "Cured Leather Boots" }, { "id": 239, "name": "Cured Leather Gloves" }, { "id": 285, "name": "Scalemail Vest" }, { "id": 286, "name": "Scalemail Pants" }, { "id": 287, "name": "Scalemail Boots" }, { "id": 414, "name": "Dalaran Sharp" }, { "id": 422, "name": "Dwarven Mild" }, { "id": 537, "name": "Dull Frenzy Scale" }, { "id": 555, "name": "Rough Vulture Feathers" }, { "id": 556, "name": "Buzzard Beak" }, { "id": 647, "name": "Destiny" }, { "id": 710, "name": "Bracers of the People&#39;s Militia" }, { "id": 711, "name": "Tattered Cloth Gloves" }, { "id": 714, "name": "Dirty Leather Gloves" }, { "id": 718, "name": "Scalemail Gloves" }, { "id": 719, "name": "Rabbit Handler Gloves" }, { "id": 720, "name": "Brawler Gloves" }, { "id": 723, "name": "Goretusk Liver" }, { "id": 724, "name": "Goretusk Liver Pie" }, { "id": 725, "name": "Gnoll Paw" }, { "id": 727, "name": "Notched Shortsword" }, { "id": 728, "name": "Recipe: Westfall Stew" }, { "id": 729, "name": "Stringy Vulture Meat" }, { "id": 730, "name": "Murloc Eye" }, { "id": 731, "name": "Goretusk Snout" }, { "id": 732, "name": "Ripe Okra" }, { "id": 733, "name": "Westfall Stew" }, { "id": 735, "name": "Rolf and Malakai&#39;s Medallions" }, { "id": 737, "name": "Holy Spring Water" }, { "id": 738, "name": "Sack of Barley" }, { "id": 739, "name": "Sack of Corn" }, { "id": 740, "name": "Sack of Rye" }, { "id": 742, "name": "A Sycamore Branch" }, { "id": 743, "name": "Bundle of Charred Oak" }, { "id": 744, "name": "Thunderbrew&#39;s Boot Flask" }, { "id": 745, "name": "Marshal McBride&#39;s Documents" }, { "id": 748, "name": "Stormwind Armor Marker" }, { "id": 750, "name": "Tough Wolf Meat" }, { "id": 752, "name": "Red Burlap Bandana" }, { "id": 753, "name": "Dragonmaw Shortsword" }, { "id": 754, "name": "Shortsword of Vengeance" }, { "id": 755, "name": "Melted Candle" }, { "id": 756, "name": "Tunnel Pick" }, { "id": 763, "name": "Ice-Covered Bracers" }, { "id": 765, "name": "Silverleaf" }, { "id": 766, "name": "Flanged Mace" }, { "id": 767, "name": "Long Bo Staff" }, { "id": 768, "name": "Lumberjack Axe" }, { "id": 769, "name": "Chunk of Boar Meat" }, { "id": 770, "name": "Pointy Crocolisk Tooth" }, { "id": 771, "name": "Chipped Boar Tusk" }];
         var items_with_apostrophe = [{ "id": 25, "name": "Worn Shortsword" }, { "id": 35, "name": "Bent Staff" }, { "id": 36, "name": "Worn Mace" }, { "id": 37, "name": "Worn Axe" }, { "id": 38, "name": "Recruit's Shirt" }, { "id": 39, "name": "Recruit's Pants" }, { "id": 40, "name": "Recruit's Boots" }, { "id": 43, "name": "Squire's Boots" }, { "id": 44, "name": "Squire's Pants" }, { "id": 45, "name": "Squire's Shirt" }, { "id": 47, "name": "Footpad's Shoes" }, { "id": 48, "name": "Footpad's Pants" }, { "id": 49, "name": "Footpad's Shirt" }, { "id": 51, "name": "Neophyte's Boots" }, { "id": 52, "name": "Neophyte's Pants" }, { "id": 53, "name": "Neophyte's Shirt" }, { "id": 55, "name": "Apprentice's Boots" }, { "id": 56, "name": "Apprentice's Robe" }, { "id": 57, "name": "Acolyte's Robe" }, { "id": 59, "name": "Acolyte's Shoes" }, { "id": 60, "name": "Layered Tunic" }, { "id": 61, "name": "Dwarven Leather Pants" }, { "id": 79, "name": "Dwarven Cloth Britches" }, { "id": 80, "name": "Soft Fur-Lined Shoes" }, { "id": 85, "name": "Dirty Leather Vest" }, { "id": 117, "name": "Tough Jerky" }, { "id": 118, "name": "Minor Healing Potion" }, { "id": 120, "name": "Thug Pants" }, { "id": 121, "name": "Thug Boots" }, { "id": 127, "name": "Trapper's Shirt" }, { "id": 129, "name": "Rugged Trapper's Boots" }, { "id": 139, "name": "Brawler's Pants" }, { "id": 140, "name": "Brawler's Boots" }, { "id": 147, "name": "Rugged Trapper's Pants" }, { "id": 148, "name": "Rugged Trapper's Shirt" }, { "id": 153, "name": "Primitive Kilt" }, { "id": 159, "name": "Refreshing Spring Water" }, { "id": 182, "name": "Garrick's Head" }, { "id": 193, "name": "Tattered Cloth Vest" }, { "id": 194, "name": "Tattered Cloth Pants" }, { "id": 195, "name": "Tattered Cloth Boots" }, { "id": 200, "name": "Thick Cloth Vest" }, { "id": 201, "name": "Thick Cloth Pants" }, { "id": 202, "name": "Thick Cloth Shoes" }, { "id": 203, "name": "Thick Cloth Gloves" }, { "id": 209, "name": "Dirty Leather Pants" }, { "id": 210, "name": "Dirty Leather Boots" }, { "id": 236, "name": "Cured Leather Armor" }, { "id": 237, "name": "Cured Leather Pants" }, { "id": 238, "name": "Cured Leather Boots" }, { "id": 239, "name": "Cured Leather Gloves" }, { "id": 285, "name": "Scalemail Vest" }, { "id": 286, "name": "Scalemail Pants" }, { "id": 287, "name": "Scalemail Boots" }, { "id": 414, "name": "Dalaran Sharp" }, { "id": 422, "name": "Dwarven Mild" }, { "id": 537, "name": "Dull Frenzy Scale" }, { "id": 555, "name": "Rough Vulture Feathers" }, { "id": 556, "name": "Buzzard Beak" }, { "id": 647, "name": "Destiny" }, { "id": 710, "name": "Bracers of the People's Militia" }, { "id": 711, "name": "Tattered Cloth Gloves" }, { "id": 714, "name": "Dirty Leather Gloves" }, { "id": 718, "name": "Scalemail Gloves" }, { "id": 719, "name": "Rabbit Handler Gloves" }, { "id": 720, "name": "Brawler Gloves" }, { "id": 723, "name": "Goretusk Liver" }, { "id": 724, "name": "Goretusk Liver Pie" }, { "id": 725, "name": "Gnoll Paw" }, { "id": 727, "name": "Notched Shortsword" }, { "id": 728, "name": "Recipe: Westfall Stew" }, { "id": 729, "name": "Stringy Vulture Meat" }, { "id": 730, "name": "Murloc Eye" }, { "id": 731, "name": "Goretusk Snout" }, { "id": 732, "name": "Ripe Okra" }, { "id": 733, "name": "Westfall Stew" }, { "id": 735, "name": "Rolf and Malakai's Medallions" }, { "id": 737, "name": "Holy Spring Water" }, { "id": 738, "name": "Sack of Barley" }, { "id": 739, "name": "Sack of Corn" }, { "id": 740, "name": "Sack of Rye" }, { "id": 742, "name": "A Sycamore Branch" }, { "id": 743, "name": "Bundle of Charred Oak" }, { "id": 744, "name": "Thunderbrew's Boot Flask" }, { "id": 745, "name": "Marshal McBride's Documents" }, { "id": 748, "name": "Stormwind Armor Marker" }, { "id": 750, "name": "Tough Wolf Meat" }, { "id": 752, "name": "Red Burlap Bandana" }, { "id": 753, "name": "Dragonmaw Shortsword" }, { "id": 754, "name": "Shortsword of Vengeance" }, { "id": 755, "name": "Melted Candle" }, { "id": 756, "name": "Tunnel Pick" }, { "id": 763, "name": "Ice-Covered Bracers" }, { "id": 765, "name": "Silverleaf" }, { "id": 766, "name": "Flanged Mace" }, { "id": 767, "name": "Long Bo Staff" }, { "id": 768, "name": "Lumberjack Axe" }, { "id": 769, "name": "Chunk of Boar Meat" }, { "id": 770, "name": "Pointy Crocolisk Tooth" }, { "id": 771, "name": "Chipped Boar Tusk" }];
-        var currently_selected_item;
         $scope.compList = [];
         $scope.prodList = [];
 
@@ -135,14 +149,26 @@ myApp.controller('AutoCompleteController', ["$scope", "$state", "$http",
         }
 
         $scope.addComponent = function () {
-            $scope.compList.push(document.getElementById("componentForm").value);
-            console.log($scope.compList);
+            addItem($scope.compList,"componentForm");
         } 
 
         $scope.addProduct = function () {
-            $scope.prodList.push(document.getElementById("productForm").value);
-            console.log($scope.prodList);
+            addItem($scope.prodList,"productForm");
         } 
+
+        function addItem(list,form){
+            itemIndex = list.findIndex((item => item.name == document.getElementById(form).value))
+            if(itemIndex != -1){
+                list[itemIndex].count++;
+            }
+            else{
+                list.push({
+                    name: document.getElementById(form).value,
+                    count: 1,
+                    id: items_with_apostrophe[items_with_apostrophe.findIndex(item => item.name == document.getElementById(form).value)].id
+                });
+            }
+        };
 
         autocomplete(document.getElementById("componentForm"), items);
         autocomplete(document.getElementById("productForm"), items);

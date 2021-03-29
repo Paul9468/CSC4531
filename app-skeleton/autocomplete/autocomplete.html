@@ -6,16 +6,35 @@
 
     <div class="w3-row">
         <div class="w3-half w3-container">
+            <form autocomplete="off">
+                <div style="width:300px;">
+                    <input id="nameForm" type="text" name="Recipe name" placeholder="Recipe name" required>
+                </div>
+            </form>
+        </div>
 
+        <div class="w3-half w3-container">
+            <form autocomplete="off">
+                <div style="width:300px;">
+                    <input id="setPriceForm" type="text" name="Recipe price" placeholder="[OPTIONAL] Set recipe price">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <br><br>
+
+    <div class="w3-row">
+        <div class="w3-half w3-container">
+            <p>Componants:</p>
             <form autocomplete="off">
                 <div class="autocomplete" style="width:300px;">
-                    <input id="componentForm" type="text" name="myCountry" placeholder="Item" required>
+                    <input id="componentForm" type="text" name="New component" placeholder="Item" required>
                 </div>
                 <input type="submit" ng-click="addComponent()">
             </form>
 
             <p>
-                Componants:
                 <li ng-repeat="item in compList">
                     {{item}}
                 </li>
@@ -23,16 +42,15 @@
 
         </div>
         <div class="w3-half w3-container">
-
+            <p>Products:</p>
             <form autocomplete="off">
                 <div class="autocomplete" style="width:300px;">
-                    <input id="productForm" type="text" name="myCountry" placeholder="Item" required>
+                    <input id="productForm" type="text" name="New product" placeholder="Item" required>
                 </div>
                 <input type="submit" ng-click="addProduct()">
             </form>
 
             <p>
-                Products:
                 <li ng-repeat="item in prodList">
                     {{item}}
                 </li>
@@ -41,12 +59,14 @@
         </div>
     </div>
 
-
-    <br />
-    <button ng-click="gotohome()"
+    <br>
+    <button ng-click="saveRecipe()"
             type="button" class="w3-btn w3-red w3-round-small">
-        Go back to home!
+        Save this recipe
     </button>
+
+    <br><br>
+
     <button ng-click="reloadItemsList()"
             type="button" class="w3-btn w3-red w3-round-small">
         Reload items list from API
