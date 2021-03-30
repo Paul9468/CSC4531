@@ -10,9 +10,9 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: 'home/home.html'
         })
 
-        .state('page2', {
-            url: '/page2',
-            templateUrl: 'page2/page2.html'
+        .state('CustomRecipeList', {
+            url: '/CustomRecipeList',
+            templateUrl: 'CustomRecipeList/CustomRecipeList.html'
         })
 
         .state('page3', {
@@ -20,9 +20,9 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: 'page3/page3.html'
         })
 
-        .state('autocomplete', {
-            url: '/autocomplete',
-            templateUrl: 'autocomplete/autocomplete.html'
+        .state('recipeCreation', {
+            url: '/recipeCreation',
+            templateUrl: 'recipeCreation/recipeCreation.html'
         });
 
     $urlRouterProvider.otherwise('home');
