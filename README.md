@@ -6,4 +6,6 @@ The app-skeleton directory contains the client side web app developped using the
 
 The express-server directory contains the server side REST API powered by Node.JS.
 
+The server retrieves data from the WoW API, and from a local database handled with PostgreSQL. To create and use the database follow [this link](https://gitlab.com/francisschiavo/wow-data).
+
 Application by Paul Ciupek for the course CSC4531

@@ -38,7 +38,7 @@ myApp.service('RecipesService',["$http", function($http){
         {
             $http({
                 method: 'GET',
-                url: `http://localhost:5000/api/ahprices/item/${item.id}`
+                url: `http://localhost:5000/ahprices/item/${item.id}`
             }).then(function successCallback(response) {
                 // this callback will be called asynchronously when the response is available
                 if(bool){

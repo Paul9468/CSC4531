@@ -12,7 +12,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(logger); 
 
 //Setup API Routes
-app.use('/api/ahprices', require('./routes/api/ahpricesRoutes'));
+app.use('/ahprices', require('./routes/api/ahpricesRoutes'));
+app.use('/database', require('./routes/database/databaseRoutes'));
+
 
 const PORT = process.env.PORT || 5000;
 
