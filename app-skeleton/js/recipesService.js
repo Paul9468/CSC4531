@@ -2,11 +2,12 @@ myApp.service("RecipesService", [
   "$http",
   function ($http) {
     var recipesService = {};
-    var user;
+    var user ="";
     recipesService.recipesList = [];
 
     //Get recipes list from server
     recipesService.getRecipes = (callback) => {
+      if(user==""){user="default"}
       $http({
         method: "GET",
         url: `http://localhost:5000/recipes/get/${user}`,
@@ -14,7 +15,7 @@ myApp.service("RecipesService", [
         function successCallback(response) {
           console.log("Recipes list successfully retrieved");
           // this callback will be called asynchronously when the response is available
-          recipesService.recipesList = response.data;
+          recipesService.recipesList = response.data || [];
           if (callback) {
             callback();
           }
@@ -41,6 +42,7 @@ myApp.service("RecipesService", [
         function successCallback(response) {
           // this callback will be called asynchronously when the response is available
           console.log("Recipe succesfully posted");
+          recipesService.getRecipes();
         },
         function errorCallback(response) {
           // called asynchronously if an error occurs or server returns response with an error status.

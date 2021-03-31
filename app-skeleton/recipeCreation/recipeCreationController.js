@@ -71,9 +71,10 @@ myApp.controller("RecipeCreationController", [
     var items = [];
 
     $scope.reloadItemsList = (function () {
-      itemsListService.getItemsList((list) =>
-        bindFormsToAutocompletionList(list)
-      );
+      itemsListService.getItemsList((list) => {
+        bindFormsToAutocompletionList(list);
+        items = list;
+      });
     })();
 
     //Autocomplete function from https://www.w3schools.com/howto/howto_js_autocomplete.asp
@@ -194,6 +195,14 @@ myApp.controller("RecipeCreationController", [
 
     $scope.addProduct = function () {
       addItem($scope.prodList, "productForm");
+    };
+
+    $scope.deleteItem = function (bool, itemId) {
+      if (bool) {
+        $scope.prodList = $scope.prodList.filter((item) => item.id != itemId);
+      } else {
+        $scope.compList = $scope.compList.filter((item) => item.id != itemId);
+      }
     };
 
     function addItem(list, form) {

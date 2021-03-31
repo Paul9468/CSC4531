@@ -37,7 +37,7 @@
       </form>
 
       <p>
-        <li ng-repeat="item in compList">{{item.name}} ({{item.count}})</li>
+        <li ng-repeat="item in compList">{{item.name}} ({{item.count}})  <i ng-click="deleteItem(false,item.id)" class="fa fa-close"></i></li>
       </p>
     </div>
     <div class="w3-half w3-container">
@@ -56,7 +56,7 @@
       </form>
 
       <p>
-        <li ng-repeat="item in prodList">{{item.name}} ({{item.count}})</li>
+        <li ng-repeat="item in prodList">{{item.name}} ({{item.count}})  <i ng-click="deleteItem(true,item.id)" class="fa fa-close"></i></li>
       </p>
     </div>
   </div>
