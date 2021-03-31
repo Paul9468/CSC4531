@@ -1,22 +1,37 @@
-
 <div class="w3-margin" ng-controller="CustomRecipeListController">
+  <br />
+  <div class="container">
+    <p class="center">
+      This is the custom recipes list page, check out what recipe is worth
+      crafting, or create a new one :
+      <a class="w3-button w3-blue" href="#/recipeCreation">New recipe</a>
+    </p>
+  </div>
+  <br /><br />
 
-    <br>
-    <div class="container"><p class='center'>
-    This is the custom recipes list page, check out what recipe is worth crafting, or create a new one :
-    <a class="w3-button w3-blue" href="#/recipeCreation">New recipe</a>
-    </p></div>
-    <br><br>
+  <table id="recipesTable" class="w3-table w3-bordered w3-border w3-hoverable w3-centered">
+    <tr>
+      <!--When a header is clicked, run the sortTable function, with a parameter,
+        0 for sorting by names, 1 for sorting by country: -->
+      <th ng-click=sortTable(0)>Name</th>
+      <th ng-click=sortTable(1)>Profit</th>
+      <th ng-click=sortTable(2)>Profit %</th>
+      <th ng-click=sortTable(3)>Cost</th>
+      <th ng-click=sortTable(4)>Price</th>
+      <th></th>
+    </tr>
+    <tr ng-repeat="recipe in recipesList" class={{recipe.color}}>
+      <td ng-click="editRecipe(recipe)">{{recipe.name}}</td>
+      <td ng-click="editRecipe(recipe)">{{recipe.profit | number:0}} g</td>
+      <td ng-click="editRecipe(recipe)">{{(recipe.profit/recipe.cost)*100 | number:2}}</td>
+      <td ng-click="editRecipe(recipe)">{{recipe.cost|number:2}} g</td>
+      <td ng-click="editRecipe(recipe)">{{recipe.price|number:2}} g</td>
+      <td>
+        <i ng-click="deleteRecipe(recipe)" class="fa fa-close w3-right"></i>
+      </td>
+    </tr>
+  </table>
 
-    <ul class="w3-ul w3-border">
-        <li><h2>Recipes</h2></li>
-        <li ng-repeat='recipe in recipesList'>
-            {{recipe}}
-        </li>
-      </ul>
-
-      <br>
-      <a class="w3-button w3-blue" ng-click='evaluateAllRecipes()'>Updoot</a>
-
-
+  <br />
+  <a class="w3-button w3-blue" ng-click="evaluateAllRecipes()">Update auction house data</a>
 </div>

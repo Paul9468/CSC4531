@@ -11,15 +11,14 @@ const client = new Client({
     port: 5432,
 });
 
-
+client
+.connect()
+.catch(err => console.log(err))
+.then(console.log("Client connected to DB"));
 
 router.get('/items', (req, res) => {
 
     console.log("Trying to reach items DB");
-
-    client
-    .connect()
-    .catch(err => console.log(err));
 
     const query =`
     SELECT id,name,purchase_price,sell_price FROM items;

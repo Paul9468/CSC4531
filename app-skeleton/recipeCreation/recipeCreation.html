@@ -1,75 +1,95 @@
 <div class="w3-margin" layout="column" ng-controller="RecipeCreationController">
+  <br />
+  <p>This is the recipe creation page.</p>
 
-    <br>
-    <p>This is the recipe creation page.
-    {{ahData}}</p>
-
-    <div class="w3-row">
-        <div class="w3-half w3-container">
-            <form autocomplete="off">
-                <div style="width:300px;">
-                    <input id="nameForm" type="text" name="Recipe name" placeholder="Recipe name" required>
-                </div>
-            </form>
+  <div class="w3-row">
+    <div class="w3-half w3-container">
+      <form autocomplete="off">
+        <div style="width: 300px">
+          <input
+            id="nameForm"
+            type="text"
+            name="Recipe name"
+            placeholder="Recipe name"
+            required
+          />
         </div>
-
-        <div class="w3-half w3-container">
-            <form autocomplete="off">
-                <div style="width:300px;">
-                    <input id="setPriceForm" type="text" name="Recipe price" placeholder="[OPTIONAL] Set recipe price">
-                </div>
-            </form>
-        </div>
+      </form>
     </div>
+  </div>
 
-    <br><br>
+  <br /><br />
 
-    <div class="w3-row">
-        <div class="w3-half w3-container">
-            <p>Componants:</p>
-            <form autocomplete="off">
-                <div class="autocomplete" style="width:300px;">
-                    <input id="componentForm" type="text" name="New component" placeholder="Item" required>
-                </div>
-                <input type="submit" ng-click="addComponent()">
-            </form>
-
-            <p>
-                <li ng-repeat="item in compList">
-                    {{item}}
-                </li>
-            </p>
-
+  <div class="w3-row">
+    <div class="w3-half w3-container">
+      <p>Componants:</p>
+      <form autocomplete="off">
+        <div class="autocomplete" style="width: 300px">
+          <input
+            id="componentForm"
+            type="text"
+            name="New component"
+            placeholder="Item"
+            required
+          />
         </div>
-        <div class="w3-half w3-container">
-            <p>Products:</p>
-            <form autocomplete="off">
-                <div class="autocomplete" style="width:300px;">
-                    <input id="productForm" type="text" name="New product" placeholder="Item" required>
-                </div>
-                <input type="submit" ng-click="addProduct()">
-            </form>
+        <input type="submit" ng-click="addComponent()" />
+      </form>
 
-            <p>
-                <li ng-repeat="item in prodList">
-                    {{item}}
-                </li>
-            </p>
-
-        </div>
+      <p>
+        <li ng-repeat="item in compList">{{item.name}} ({{item.count}})</li>
+      </p>
     </div>
+    <div class="w3-half w3-container">
+      <p>Products:</p>
+      <form autocomplete="off">
+        <div class="autocomplete" style="width: 300px">
+          <input
+            id="productForm"
+            type="text"
+            name="New product"
+            placeholder="Item"
+            required
+          />
+        </div>
+        <input type="submit" ng-click="addProduct()" />
+      </form>
 
-    <br>
-    <button ng-click="saveRecipe()"
-            type="button" class="w3-btn w3-red w3-round-small">
-        Save this recipe
-    </button>
+      <p>
+        <li ng-repeat="item in prodList">{{item.name}} ({{item.count}})</li>
+      </p>
+    </div>
+  </div>
 
-    <br><br>
+  <br />
+  <br />
 
-    <button ng-click="reloadItemsList()"
-            type="button" class="w3-btn w3-red w3-round-small">
-        Reload items list from API
-    </button>
+<div class="w3-row">
+  <button
+    ng-click="saveRecipe()"
+    type="button"
+    class="w3-btn w3-red w3-round-small"
+  >
+    Save this recipe
+  </button>
 
+  <button
+  ng-click="goToList()"
+  type="button"
+  class="w3-btn w3-red w3-round-small"
+>
+  Cancel
+</button>
+</div>
+
+  <br /><br />
+
+  <!-- <button
+      ng-click="reloadItemsList()"
+      type="button"
+      class="w3-btn w3-red w3-round-small"
+    >
+      Reload items list from API
+    </button> -->
+    
 </div>

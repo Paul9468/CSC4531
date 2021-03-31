@@ -26,8 +26,24 @@
       <!-- Float links to the right. Hide them on small screens -->
       <div class="w3-right w3-hide-small">
         <a href="#/CustomRecipeList" class="w3-bar-item w3-button">Recipes</a>
-        <a href="#/" class="w3-bar-item w3-button">Region</a>
-        <a href="#/" class="w3-bar-item w3-button">Server</a>
+        
+        <div class="w3-dropdown-hover">
+          <button class="w3-button w3-wide">Region
+          </button>
+          <div id="region" class="w3-dropdown-content w3-bar-block w3-border w3-animate-slide">
+            <a href="#" class="w3-bar-item w3-button w3-border">EU</a>
+            <a href="#" class="w3-bar-item w3-button w3-border">NA</a>
+          </div>
+        </div>
+
+        <div class="w3-dropdown-hover">
+          <button class="w3-button w3-wide">Serveur
+          </button>
+          <div id="region" class="w3-dropdown-content w3-bar-block w3-border w3-animate-slide" style="right:0">
+            <a href="#" class="w3-bar-item w3-button">Archimonde</a>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -49,6 +65,7 @@
     ––––––––––––––––––––––––––––––––––––––––––––––––––-->
       <script src="js/myapp.js"></script>
       <script src="js/recipesService.js"></script>
+      <script src="js/itemsListService.js"></script>
       <script src="home/homecontroller.js"></script>
       <script src="CustomRecipeList/CustomRecipeListcontroller.js"></script>
       <script src="page3/page3controller.js"></script>

@@ -11,9 +11,9 @@
   "author": "Paul Ciupek",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "moment": "^2.29.1",
-    "passport-bnet": "^2.0.0",
     "pg": "^8.5.1"
   },
   "devDependencies": {

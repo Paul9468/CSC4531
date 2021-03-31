@@ -1,16 +1,79 @@
-myApp.controller('CustomRecipeListController', ["$scope", "$state", "$http","RecipesService",
+myApp.controller("CustomRecipeListController", [
+  "$scope",
+  "$state",
+  "$http",
+  "RecipesService",
 
-    function ($scope, $state, $http, recipesService) {
+  function ($scope, $state, $http, recipesService) {
+    $scope.ahData = "Waiting for input";
 
-        console.log('this is the CustomRecipeList controller, hi!');
+    recipesService.getRecipes(() => {
+      $scope.recipesList = recipesService.recipesList;
+      $scope.evaluateAllRecipes();
+    });
 
-        $scope.hardCodedData = "Hard coded data";
-        $scope.ahData = "Waiting for input";
-
+    $scope.deleteRecipe = (recipe) => {
+      console.log("Deleting " + recipe.name);
+      recipesService.deleteRecipe(recipe, () => {
         $scope.recipesList = recipesService.recipesList;
+      });
+    };
 
-        $scope.evaluateAllRecipes = () => {
-            recipesService.evaluateAll();
+    $scope.editRecipe = (recipe) => {
+      console.log("Editing " + recipe.name);
+      $state.go("recipeEdition", { id: recipe.id });
+    };
+
+    $scope.evaluateAllRecipes = () => {
+      recipesService.evaluateAll();
+    };
+
+    $scope.sortTable = (n) => {
+      console.log("sorting");
+      var table, rows, switching, i, x, y, shouldSwitch;
+      table = document.getElementById("recipesTable");
+      switching = true;
+      /*Make a loop that will continue until
+            no switching has been done:*/
+      while (switching) {
+        //start by saying: no switching is done:
+        switching = false;
+        rows = table.rows;
+        /*Loop through all table rows (except the
+              first, which contains table headers):*/
+        for (i = 1; i < rows.length - 1; i++) {
+          //start by saying there should be no switching:
+          shouldSwitch = false;
+          /*Get the two elements you want to compare,
+                one from current row and one from the next:*/
+          x = rows[i].getElementsByTagName("TD")[n];
+          y = rows[i + 1].getElementsByTagName("TD")[n];
+          //check if the two rows should switch place:
+          if (n == 0) {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          } else if (
+            parseFloat(x.innerHTML.replace(",", "")) <
+            parseFloat(y.innerHTML.replace(",", ""))
+          ) {
+            //if so, mark as a switch and break the loop:
+            shouldSwitch = true;
+            break;
+          }
         }
-    }
+        if (shouldSwitch) {
+          /*If a switch has been marked, make the switch
+                and mark that a switch has been done:*/
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          !console.log("switching");
+        }
+      }
+    };
+
+    console.log("This is the CustomRecipeList controller !");
+  },
 ]);
