@@ -103,10 +103,10 @@ myApp.service("RecipesService", [
             // this callback will be called asynchronously when the response is available
             if (bool) {
               recipe.price +=
-                Math.max(item.sell_price, response.data) * item.count;
+                Math.max(item.sell_price/10000, response.data) * item.count;
             } else {
-              recipe.cost +=
-                Math.min(item.purchase_price, response.data) * item.count;
+              console.log(item.id,item.sell_price/10000,item.purchase_price/10000,item.count);
+              recipe.cost += item.count * response.data ? response.data : item.purchase_price/10000;
             }
             recipesService.updateRecipe(recipe);
           },
