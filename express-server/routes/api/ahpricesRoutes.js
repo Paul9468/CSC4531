@@ -1,12 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
-const https = require('https');
 const request = require('request');
 
-const api_hostname = 'us.api.blizzard.com';
 const ahPrices = './Data/ahPrices.json';
-const archPrices = './Data/archimondeData.json';
 
 var askingToken = false;
 var askingTokenCallbacks = [];
@@ -35,24 +32,26 @@ const writeFile = (fileData, callback, filePath = ahPrices, encoding = 'utf8') =
 
 //Get single item price
 router.get('/item/:id', (req, res) => {
-	readFile((data) => {
-		callback = () => {
-			const id = parseInt(req.params.id);
-			const min = Math.min.apply(
-				null,
-				data.filter((auction) => auction.item.id == id).map((auction) => auction.unit_price)
-			);
-			res.set('Access-Control-Allow-Origin', '*');
-			res.status(200).json(min / 10000);
-		};
-
-		//if (data.pullTime - Date.now() < 3600000) {
-		if(true){
-    callback();
-		} else {
-			getApiAhData(callback);
-		}
-	},true,archPrices);
+	readFile(
+		(data) => {
+			callback = () => {
+				const id = parseInt(req.params.id);
+				const min = Math.min.apply(
+					null,
+					data.auctions.filter((auction) => auction.item.id == id).map((auction) => auction.unit_price)
+				);
+				res.set('Access-Control-Allow-Origin', '*');
+				res.status(200).json(min / 10000);
+			};
+			if (data.pullTime - Date.now() < 3600000) {
+				callback();
+			} else {
+				getApiAhData(callback);
+			}
+		},
+		true,
+		ahPrices
+	);
 });
 
 
@@ -64,90 +63,31 @@ getApiAhData = (callback) => {
 		getToken((token) => {
 
 			var options = {
-				host: api_hostname,
-				path: '/data/wow/connected-realm/1302/auctions',
-				namespace: 'dynamic-eu',
-				access_token: token,
-			};
+				'method': 'GET',
+				'url': 'https://eu.api.blizzard.com/data/wow/connected-realm/1302/auctions?namespace=dynamic-eu&locale=en_US',
+				'headers': {
+				  'Authorization': 'Bearer USosu3CweJZsW7hnabWKHXEVuf4LMdgkI3'
+				}
+			  };
 
 			console.log('Ready to send request to blizzard API');
 
-			https
-				.get(options, function (blizzard_res) {
-					console.log('STATUS: ' + blizzard_res.statusCode);
-					let data = '';
+			request(options, function (error, response) {
+				if (error) throw new Error(error);
 
-					// A chunk of data has been received.
-					blizzard_res.on('data', (chunk) => {
-						data += chunk;
-					});
-
-					// The whole response has been received. Print out the result.
-					blizzard_res.on('end', () => {
-						console.log('AH Data recieved');
-            console.log(data);
-						data.pullTime = Date.now();
-						writeFile(data.body, () => {
-							while (askingAhDataCallbacks.length > 0) {
-								askingAhDataCallbacks.pop()();
-							}
-							askingAhData = false;
-						});
-					});
-				})
-				.on('error', (err) => {
-					console.log('Error: ' + err.message);
+				console.log('AH Data recieved');
+				var data = JSON.parse(response.body);
+				data.pullTime = Date.now();
+				writeFile(JSON.stringify(data), () => {
+					while (askingAhDataCallbacks.length > 0) {
+						askingAhDataCallbacks.pop()();
+					}
+					askingAhData = false;
 				});
+			});
 		});
 	}
 };
-
-// Request the Auction house data from Blizzard API
-// getApiAhData2 = (callback) => {
-// 	askingAhDataCallbacks.push(callback);
-// 	if (!askingAhData) {
-// 		askingAhData = true;
-// 		getToken((token) => {
-// 			const options = {
-// 				host: api_hostname,
-// 				path: '/data/wow/connected-realm/1302/auctions',
-// 				namespace: 'dynamic-eu',
-// 				access_token: token,
-// 			};
-
-// 			console.log('Ready to send request to blizzard API');
-
-// 			https
-// 				.get(options, function (blizzard_res) {
-// 					console.log('STATUS: ' + blizzard_res.statusCode);
-// 					let data = '';
-
-// 					// A chunk of data has been received.
-// 					blizzard_res.on('data', (chunk) => {
-// 						data += chunk;
-// 					});
-
-// 					// The whole response has been received. Print out the result.
-// 					blizzard_res.on('end', () => {
-// 						console.log('AH Data recieved');
-//             console.log(data);
-// 						data.pullTime = Date.now();
-// 						writeFile(data.body, () => {
-// 							while (askingAhDataCallbacks.length > 0) {
-// 								askingAhDataCallbacks.pop()();
-// 							}
-// 							askingAhData = false;
-// 						});
-// 					});
-// 				})
-// 				.on('error', (err) => {
-// 					console.log('Error: ' + err.message);
-// 				});
-// 		});
-// 	}
-// };
-
-
 
 //Authentification with blizzard API
 function getToken(callback) {
@@ -188,7 +128,7 @@ function refreshToken(callback) {
 		};
 
 		console.log('Ready to send refresh oauth token');
-		var blizzard_req = request(options1, function (err, blizzard_res, body) {
+		request(options1, function (err, blizzard_res, body) {
 			//console.log('STATUS: ' + blizzard_res.statusCode);
 			//console.log('HEADERS: ' + JSON.stringify(blizzard_res.headers));
 			console.log('statusCode:', blizzard_res && blizzard_res.statusCode);

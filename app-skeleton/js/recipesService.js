@@ -105,8 +105,8 @@ myApp.service("RecipesService", [
               recipe.price +=
                 Math.max(item.sell_price/10000, response.data) * item.count;
             } else {
-              console.log(item.id,item.sell_price/10000,item.purchase_price/10000,item.count);
-              recipe.cost += item.count * response.data ? response.data : item.purchase_price/10000;
+              var itemcost = response.data ? response.data : item.purchase_price/10000;
+              recipe.cost += item.count * itemcost;
             }
             recipesService.updateRecipe(recipe);
           },
@@ -123,7 +123,7 @@ myApp.service("RecipesService", [
       recipe.profit++;
       if (recipe.profit == 0) {
         recipe.profit = recipe.price - recipe.cost;
-        console.log("update complete");
+        console.log("Update complete");
         if(recipe.profit/recipe.cost > 0.1){
           recipe.color = "w3-green";
         }

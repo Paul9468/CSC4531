@@ -4,7 +4,7 @@ const router = express.Router();
 var recipesList = [
 	[
 		{
-			name: 'Rec1',
+			name: 'Flask of Power',
 			components: [
 				{
 					id: 171315,
@@ -63,7 +63,7 @@ var recipesList = [
 			id: 7205167160,
 		},
 		{
-			name: 'Rec2',
+			name: "Embalmer's Oil",
 			components: [
 				{
 					id: 169701,
