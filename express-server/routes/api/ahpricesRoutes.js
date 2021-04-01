@@ -54,21 +54,20 @@ router.get('/item/:id', (req, res) => {
 	);
 });
 
-
 // Request the Auction house data from Blizzard API
 getApiAhData = (callback) => {
 	askingAhDataCallbacks.push(callback);
 	if (!askingAhData) {
 		askingAhData = true;
 		getToken((token) => {
-
 			var options = {
-				'method': 'GET',
-				'url': 'https://eu.api.blizzard.com/data/wow/connected-realm/1302/auctions?namespace=dynamic-eu&locale=en_US',
-				'headers': {
-				  'Authorization': 'Bearer USosu3CweJZsW7hnabWKHXEVuf4LMdgkI3'
-				}
-			  };
+				method: 'GET',
+				url:
+					'https://eu.api.blizzard.com/data/wow/connected-realm/1302/auctions?namespace=dynamic-eu&locale=en_US',
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			};
 
 			console.log('Ready to send request to blizzard API');
 

@@ -1,29 +1,35 @@
 <div class="w3-margin" ng-controller="HomeController">
-  <br />
+	<br />
 
-  <div class="w3-row container">
-    <div class="w3-half w3-container">
-      <p>This is the <i>home</i> page.</p>
-      <p>Please select your region and server [not implemented]</p>
-      <p>Then start creating new recipes in the "New recipes" tab.</p>
-    </div>
+	<div class="w3-row container">
+		<div class="w3-half w3-container">
+			<p>
+				This Web App fetches and presents data from the
+				<a href="https://develop.battle.net/documentation/world-of-warcraft/game-data-apis"
+					>World of Warcraft Auction House API.</a
+				>
+			</p>
+			<br />
+			<p>Head over to the "Recipes" tab and start creating new recipes by hitting "New Recipe".</p>
+			<p>Then, your recipes will be listed in the "Recipes" page and their profit will be evaluated.</p>
 
-    <div class="w3-half w3-container">
-      <br /><br />
-      <label>Username</label>
-      <input name="usernameInput" class="w3-input" type="text" ng-model="userString" />
-    </div>
-  </div>
+			<br />
+			<p>You can enter a username to seperate your recipes, or keep it by default.</p>
 
-  <br /><br />
+			<p>Region and Server are defaulted to EU:Archimonde and cannot be changed at this time.</p>
 
-  <!--     <button ng-click="gotopage2()"
-            type="button" class="w3-btn w3-red w3-round-small">
-        Go to Page 2!
-    </button>
+			<br />
+			<br />
 
-    <button ng-click="gotopage3()"
-            type="button" class="w3-btn w3-red w3-round-small">
-        Go to Page 3!
-    </button> -->
+			<p>Application by Paul Ciupek for the course CSC4531</p>
+		</div>
+
+		<div class="w3-half w3-container">
+			<br /><br />
+			<label>Username</label>
+			<input name="usernameInput" class="w3-input" type="text" ng-model="userString" />
+		</div>
+	</div>
+
+	<br /><br />
 </div>
