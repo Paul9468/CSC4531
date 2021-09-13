@@ -121,8 +121,8 @@ function refreshToken(callback) {
 				grant_type: 'client_credentials',
 			},
 			auth: {
-				user: '66a771b9c48f44bdb9ce52ec95308f8c',
-				pass: 'ScBQqUgeFIAZjYRrBJfLRlqVuB4ZrS5j',
+				user: '',
+				pass: '',
 			},
 		};
 
